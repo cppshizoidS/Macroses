@@ -68,3 +68,42 @@
  * Example: DBG_ASSERT(x > y, "x should be greater than y");
  */
 #define DBG_ASSERT(condition, message) do { if (!(condition)) { std::cerr << "[" << __FILE__ << ":" << __LINE__ << "] Assertion failed: " << #condition << ". " << message << std::endl; std::exit(EXIT_FAILURE); } } while(0);
+/**
+ * @brief Print the name and size of a container along with file and line information.
+ *
+ * Example: std::vector<int> vec = {1, 2, 3}; DBG_CONTAINER(vec);
+ */
+#define DBG_CONTAINER(container) \
+    std::cout << "[" << __FILE__ << ":" << __LINE__ << "] " \
+              << "Container: " << #container << ", Size: " << (container).size() << std::endl;
+
+/**
+ * @brief Print the name, key, and value of a key-value pair along with file and line information.
+ *
+ * Example: std::map<int, std::string> myMap = {{1, "one"}, {2, "two"}}; DBG_MAP_ENTRY(myMap, 2);
+ */
+#define DBG_MAP_ENTRY(map, key) \
+    std::cout << "[" << __FILE__ << ":" << __LINE__ << "] " \
+              << "Map Entry: " << #key << " = " << (map)[key] << std::endl;
+
+/**
+ * @brief Print the name, size, and elements of a container along with file and line information.
+ *
+ * Example: std::set<int> mySet = {1, 2, 3}; DBG_SET_CONTENT(mySet);
+ */
+#define DBG_SET_CONTENT(set) \
+    std::cout << "[" << __FILE__ << ":" << __LINE__ << "] " \
+              << "Set Content: " << #set << ", Size: " << (set).size() << ", Elements: "; \
+    for (const auto& element : (set)) std::cout << element << " "; \
+    std::cout << std::endl;
+
+/**
+ * @brief Print the name and contents of a C-style array along with file and line information.
+ *
+ * Example: int arr[] = {1, 2, 3}; DBG_ARRAY_CONTENT(arr, 3);
+ */
+#define DBG_ARRAY_CONTENT(array, size) \
+    std::cout << "[" << __FILE__ << ":" << __LINE__ << "] " \
+              << "Array Content: " << #array << ", Size: " << (size) << ", Elements: "; \
+    for (size_t i = 0; i < (size); ++i) std::cout << (array)[i] << " "; \
+    std::cout << std::endl;
